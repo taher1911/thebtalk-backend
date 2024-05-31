@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  # app:
+  #   build: .
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - db
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: "online-grocery"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
+  server:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/online-grocery?schema=public"
